@@ -1,16 +1,9 @@
 /******************************************************************************
 * File Name: host_main.c
 *
-* Version: 1.10
+* Version:
 *
-* Description: This is the source code for BLE GATT Server with custom 
-*              throughput service. The BLE sends notification data to the BLE
-*              GATT client device which is used by the client for BLE 
-*              throughput measurement. 
-*
-* Related Document: CE222046_Throughput_Measurement.pdf
-*
-* Hardware Dependency: See CE222046_Throughput_Measurement.pdf
+* Description:
 *
 *******************************************************************************
 * Copyright (2018), Cypress Semiconductor Corporation. All rights reserved.
@@ -75,8 +68,8 @@
 #define NOTIFICATION_PKT_SIZE       (495)
 #define SUCCESS                     (0u)
 #define TARGET_BDADDR       {{0xFF, 0xBB, 0xAA, 0x50, 0xA0, 0x00}, 0}
-#define CUSTOM_ACC_X_DECL_HANDLE		cy_ble_customsConfig.attrInfo[0].customServInfo[0].customServCharDesc[0]
-#define CUSTOM_ACC_X_CHAR_HANDLE			cy_ble_customsConfig.attrInfo[0].customServInfo[0].customServCharHandle
+#define CUSTOM_DECL_HANDLE		cy_ble_customsConfig.attrInfo[0].customServInfo[0].customServCharDesc[0]
+#define CUSTOM_CHAR_HANDLE			cy_ble_customsConfig.attrInfo[0].customServInfo[0].customServCharHandle
 
 
 
@@ -487,7 +480,7 @@ void StackEventHandler(uint32 event, void* eventParam)
                     apiResult);
             }
                         
-             DEBUG_BLE("CUSTOM_SERV0_CHAR0_DESC0_HANDLE (%d)""\r\nCUSTOM_SERV0_CHAR0_HANDLE(%d)\r\n",CUSTOM_ACC_X_DECL_HANDLE, CUSTOM_ACC_X_CHAR_HANDLE);
+             DEBUG_BLE("CUSTOM_SERV0_CHAR0_DESC0_HANDLE (%d)""\r\nCUSTOM_SERV0_CHAR0_HANDLE(%d)\r\n",CUSTOM_DECL_HANDLE, CUSTOM_CHAR_HANDLE);
             
             /* Enter into discoverable mode so that remote device can search it */
             Cy_BLE_GAPP_StartAdvertisement(CY_BLE_ADVERTISING_FAST, CY_BLE_PERIPHERAL_CONFIGURATION_0_INDEX);
@@ -763,7 +756,7 @@ void StackEventHandler(uint32 event, void* eventParam)
             
             /* Update Notification packet with the data. */
             notificationPacket.connHandle = appConnHandle;
-            notificationPacket.handleValPair.attrHandle = CUSTOM_ACC_X_CHAR_HANDLE;
+            notificationPacket.handleValPair.attrHandle = CUSTOM_CHAR_HANDLE;
             notificationPacket.handleValPair.value.val = accx_value;
             notificationPacket.handleValPair.value.len = NOTIFICATION_PKT_SIZE;
             
@@ -816,10 +809,10 @@ void StackEventHandler(uint32 event, void* eventParam)
             
             DEBUG_BLE("write_req_param->handleValPair.attrHandle = %d",\
                 write_req_param->handleValPair.attrHandle);
-            DEBUG_BLE(" -> Should be = CUSTOM_SERV0_CHAR0_DESC0_HANDLE (%d)\r\n-> Should be = CUSTOM_SERV0_CHAR0_HANDLE(%d)\r\n",CUSTOM_ACC_X_DECL_HANDLE, CUSTOM_ACC_X_CHAR_HANDLE);
+            DEBUG_BLE(" -> Should be = CUSTOM_SERV0_CHAR0_DESC0_HANDLE (%d)\r\n-> Should be = CUSTOM_SERV0_CHAR0_HANDLE(%d)\r\n",CUSTOM_DECL_HANDLE, CUSTOM_CHAR_HANDLE);
                   
            
-			if(write_req_param->handleValPair.attrHandle == (CUSTOM_ACC_X_DECL_HANDLE))
+			if(write_req_param->handleValPair.attrHandle == (CUSTOM_DECL_HANDLE))
             {
                 if(Cy_BLE_GATTS_WriteRsp(write_req_param->connHandle) != CY_BLE_SUCCESS)
                 {
@@ -833,14 +826,14 @@ void StackEventHandler(uint32 event, void* eventParam)
                     DEBUG_BLE("app.notification_enabled = %d\r\n", app.notification_enabled);
                     printf("Notification Enabled.\r\n\n");
                     notificationPacket.connHandle = appConnHandle;
-                    notificationPacket.handleValPair.attrHandle = CUSTOM_ACC_X_CHAR_HANDLE;
+                    notificationPacket.handleValPair.attrHandle = CUSTOM_CHAR_HANDLE;
                     notificationPacket.handleValPair.value.val = accx_value;
                     notificationPacket.handleValPair.value.len = NOTIFICATION_PKT_SIZE;
                 }
 
                 printf("Allright \r\n");
             }
-			else if(write_req_param->handleValPair.attrHandle == (CUSTOM_ACC_X_CHAR_HANDLE))
+			else if(write_req_param->handleValPair.attrHandle == (CUSTOM_CHAR_HANDLE))
 			{
 				// Remark: was on for test
 				printf("CUSTOM_ACC_X_CHAR_HANDLE \r\n");
@@ -879,7 +872,7 @@ void StackEventHandler(uint32 event, void* eventParam)
 			}
 			else
 			{
-				printf("Not correct is %d but should be %d \r\n", write_req_param->handleValPair.attrHandle, CUSTOM_ACC_X_DECL_HANDLE);
+				printf("Not correct is %d but should be %d \r\n", write_req_param->handleValPair.attrHandle, CUSTOM_DECL_HANDLE);
 			}
             break;
         }

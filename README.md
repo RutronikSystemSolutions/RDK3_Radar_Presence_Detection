@@ -2,13 +2,14 @@
 
 Rutronik Development Kit 3 Programmable System-on-Chip CYB06447BZI-BLD53 "Presence detection" Code Example.
 
-This code example demonstrate how to use the BGT60TR13C sensor from Infineon to detect a presence.
+This code example demonstrates the Infineon XENSIV™  Presence Detection algorithm.
 
-<img src="images/rdk3_with_radar_board.JPEG" style="zoom:25%;" />
+<img src="images/rdk_rab3_in_action.jpg" style="zoom:25%;" />
 
 ## Requirements
 
-- [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.0
+- [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
+- [RAB3-Radar](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files) Rev0 [[prototype](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files/tree/main/Rev0)]
 
 ## The Provisioning of the RDK3
 
@@ -31,7 +32,7 @@ Please note that the “[Secure Policy Configurator](https://www.infineon.com/dg
 
 ### Operation
 
-This code examples will output the results of the presence detection algorithm in 2 ways: directly on the console (using the KitPro3UART) or over BLE.
+This code example will output the results of the presence detection algorithm in 2 ways: directly on the console (using the KitPro3UART) or over BLE.
 
 <img src="images/ios_app_absence.PNG" style="zoom:50%;" />
 <img src="images/ios_app_presence.PNG" style="zoom:50%;" />
@@ -68,6 +69,37 @@ static const xensiv_radar_presence_config_t default_config =
     .micro_movement_compare_idx       = 5
 };
 ```
+
+
+
+#### Powering the RDK3 from the single-cell Li-ION/Li-PO battery
+
+The RAB3-Radar adapter board needs to be powered from a +5V power supply source via Arduino Headers. If the USB-C cable is connected with RDK3 and PC, the power is already supplied without any additional setup. 
+
+To make this demo portable and use it with Li-PO(or Li-ION) batteries, the OTG booster needs to be activated. This demo has a very simple method implemented which allows users to enable the boost mode from the batter just by pressing a button USER BTN1.
+
+- Connect the single-cell Li-PO or Li-ION battery, please respect the polarity. It would be best if the battery would have an internal protection circuit integrated.
+
+- Switch the SW3 upwards to the "BATTERY" position.
+
+- Mount the RAB3-Radar adapter board.
+
+- Press and hold the button USER_BTN1 and then press and release a RESET Button. Notice if the GREEN LED D7 - "POWER" lights up.
+
+- Release the USER_BTN1. The YELLOW blinking LED1 D8 indicates that the system is running and is ready for connection with a smartphone via Bluetooth LE. 
+
+  NOTICE 1: this demo does not have power-saving and self-shutting down algorithms implemented yet. The switch SW3 must be switched down to the +5V/KitProg position if the development kit is not used. This is especially important if you are using batteries without the protection circuits integrated (never allow for the voltage of the battery to fall below 3 volts).
+
+  NOTICE 2: The charging will not work if the boost mode is engaged. You need to restart the demo without pressing USER_BTN1.
+
+  NOTICE 3: The battery charging current may be adjusted in code in `battery_booster.c`:
+
+  ```c
+      	/*The charging current depends on your battery used*/
+      	dio_set_batt_current(CURR_VREF_101_8);
+  ```
+
+<img src="images/batt_supply.jpg" style="zoom:25%;" />
 
 ### Debugging
 
