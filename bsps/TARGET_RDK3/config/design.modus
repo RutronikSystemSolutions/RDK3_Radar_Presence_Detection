@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration app="BACKEND" formatVersion="13" lastSavedWith="Configurator Backend" lastSavedWithVersion="3.0.0" toolsPackage="ModusToolbox 3.0.0" xmlns="http://cypress.com/xsd/cydesignfile_v4">
+<Configuration app="BACKEND" formatVersion="13" lastSavedWith="Configurator Backend" lastSavedWithVersion="3.10.0" toolsPackage="ModusToolbox 3.1.0" xmlns="http://cypress.com/xsd/cydesignfile_v4">
     <Devices>
         <Device mpn="CYB06447BZI-BLD53">
             <BlockConfig>
@@ -310,37 +310,7 @@
                         <Param id="fracDivider" value="0"/>
                     </Personality>
                 </Block>
-                <Block location="srss[0].clock[0].fll[0]">
-                    <Personality template="fll" version="4.0">
-                        <Param id="configuration" value="auto"/>
-                        <Param id="desiredFrequency" value="100.000"/>
-                    </Personality>
-                </Block>
                 <Block location="srss[0].clock[0].hfclk[0]">
-                    <Personality template="hfclk" version="3.0">
-                        <Param id="sourceClockNumber" value="1"/>
-                        <Param id="divider" value="1"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].hfclk[1]">
-                    <Personality template="hfclk" version="3.0">
-                        <Param id="sourceClockNumber" value="1"/>
-                        <Param id="divider" value="2"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].hfclk[2]">
-                    <Personality template="hfclk" version="3.0">
-                        <Param id="sourceClockNumber" value="1"/>
-                        <Param id="divider" value="2"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].hfclk[3]">
-                    <Personality template="hfclk" version="3.0">
-                        <Param id="sourceClockNumber" value="1"/>
-                        <Param id="divider" value="1"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].hfclk[4]">
                     <Personality template="hfclk" version="3.0">
                         <Param id="sourceClockNumber" value="1"/>
                         <Param id="divider" value="1"/>
@@ -395,14 +365,8 @@
                     <Personality template="pll" version="3.0">
                         <Param id="lowFrequencyMode" value="false"/>
                         <Param id="configuration" value="auto"/>
-                        <Param id="desiredFrequency" value="144.000"/>
+                        <Param id="desiredFrequency" value="150.000"/>
                         <Param id="optimization" value="MinPower"/>
-                    </Personality>
-                </Block>
-                <Block location="srss[0].clock[0].pumpclk[0]">
-                    <Personality template="pumpclk" version="3.0">
-                        <Param id="sourceClockNumber" value="1"/>
-                        <Param id="divider" value="1"/>
                     </Personality>
                 </Block>
                 <Block location="srss[0].clock[0].slowclk[0]">

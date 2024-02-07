@@ -1,16 +1,16 @@
 /******************************************************************************
 * File Name:   main.c
 *
-* Description: This is the source code for the RDK3 Throughput Measurement
-*              Server Application for ModusToolbox.
+* Description: This is the source code for the RDK3 Radar Presence Detection
+*               Application for ModusToolbox.
 *
 * Related Document: See README.md
 *
 *
 *  Created on: 2023-07-21
 *  Company: Rutronik Elektronische Bauelemente GmbH
-*  Address: Jonavos g. 30, Kaunas 44262, Lithuania
-*  Author: ROJ030
+*  Address:
+*  Author: ROJ030, GDR
 *
 *******************************************************************************
 * (c) 2019-2021, Cypress Semiconductor Corporation. All rights reserved.
@@ -55,9 +55,11 @@
 #include "cyhal.h"
 #include "cybsp.h"
 #include "cy_retarget_io.h"
+#include "hal/hal_i2c.h"
 
 #include "host_main.h"
 #include "rutronik_app.h"
+#include "battery_booster.h"
 
 /**
  * Timer used to enable periodic call to the Bluetooth stack
@@ -192,6 +194,20 @@ int main(void)
 		CY_ASSERT(0);
 	}
 
+    /*Initialise I2C*/
+    result = hal_i2c_init() ;
+    if( result != CY_RSLT_SUCCESS)
+    {
+		printf("Error during initialization of the I2C peripheral: %lu \r\n", result);
+		CY_ASSERT(0);
+    }
+    /* Li-ION/Li-Po battery Booster Initialisation */
+    if(!batt_boost_ctrl_init())
+    {
+    	printf("Battery power supply failure.\r\n");
+    	CY_ASSERT(0);
+    }
+
     // Initialize timer (Bluetooth stack update rate)
     result = bluetooth_timer_init();
     if (result != CY_RSLT_SUCCESS)
@@ -205,14 +221,6 @@ int main(void)
     if (result != CY_RSLT_SUCCESS)
 	{
 		printf("Error during initialization of the battery charger: %lu \r\n", result);
-		CY_ASSERT(0);
-	}
-
-    // Configure USER_BTN
-    result = cyhal_gpio_init(USER_BTN, CYHAL_GPIO_DIR_INPUT, CYHAL_GPIO_DRIVE_PULLUP, CYBSP_BTN_OFF);
-    if (result != CY_RSLT_SUCCESS)
-	{
-		printf("Error during initialization of the user buttons: %lu \r\n", result);
 		CY_ASSERT(0);
 	}
 

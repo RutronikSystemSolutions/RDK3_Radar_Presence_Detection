@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="ilg.gnumcueclipse.debug.gdbjtag.openocd.launchConfigurationType">
     <stringAttribute key="com.cypress.studio.launch.mode" value="run"/>
-    <stringAttribute key="com.cypress.studio.launch.owner.0" value="f34d1c7a-71d3-44bf-b4a5-195bfce48f0b"/>
+    <stringAttribute key="com.cypress.studio.launch.owner.0" value="0c244510-4ab1-4e7c-bf4c-4478210edb07"/>
     <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.doContinue" value="false"/>
     <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.doDebugInRam" value="false"/>
     <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.doFirstReset" value="false"/>
@@ -23,8 +23,8 @@
     <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.otherInitCommands" value=""/>
     <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.otherRunCommands" value="quit"/>
     <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.openocd.secondResetType" value="run"/>
-    <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.svdPath" value="${cy_prj_path:f34d1c7a-71d3-44bf-b4a5-195bfce48f0b}/../mtb_shared/mtb-pdl-cat1/release-v3.3.1/devices/COMPONENT_CAT1A/svd/psoc6_01.svd"/>
-    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="${cy_prj_path:f34d1c7a-71d3-44bf-b4a5-195bfce48f0b}/build/RDK3/Costum/rdk3-modustoolbox-app.hex"/>
+    <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.svdPath" value="${cy_prj_path:0c244510-4ab1-4e7c-bf4c-4478210edb07}/../mtb_shared/mtb-pdl-cat1/release-v3.9.0/devices/COMPONENT_CAT1A/svd/psoc6_01.svd"/>
+    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="${cy_prj_path:0c244510-4ab1-4e7c-bf4c-4478210edb07}/build/RDK3/Custom/rdk3-ble-rab3-radar-presence.hex"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageOffset" value=""/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.ipAddress" value="localhost"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.jtagDevice" value="GNU MCU OpenOCD"/>
@@ -47,7 +47,7 @@
     <booleanAttribute key="org.eclipse.cdt.dsf.gdb.UPDATE_THREADLIST_ON_SUSPEND" value="false"/>
     <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
     <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
-    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="${cy_prj_path:f34d1c7a-71d3-44bf-b4a5-195bfce48f0b}/build/RDK3/Costum/rdk3-modustoolbox-app.hex"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="${cy_prj_path:0c244510-4ab1-4e7c-bf4c-4478210edb07}/build/RDK3/Custom/rdk3-ble-rab3-radar-presence.hex"/>
     <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="RDK3_Radar_Presence_Detection"/>
     <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">

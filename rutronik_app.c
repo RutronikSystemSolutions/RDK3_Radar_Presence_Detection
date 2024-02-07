@@ -27,6 +27,8 @@
 
 #define NUM_SAMPLES_PER_CHIRP				XENSIV_BGT60TRXX_CONF_NUM_SAMPLES_PER_CHIRP
 
+#define SPI_FREQUENCY						15000000
+
 /**
  * Internal structure used to retain run-time data
  */
@@ -100,8 +102,8 @@ static float32_t frame[NUM_SAMPLES_PER_FRAME];
  */
 static int init_spi()
 {
-	// Set the SPI speed to 5MHz (to avoid communication problems)
-	const uint32_t spi_freq = 5000000UL;
+	/* Set the SPI Clock to maximum */
+	uint32_t spi_freq = cy_PeriClkFreqHz / 4;
 
 	if (cyhal_spi_init(&spi_obj,
 			ARDU_MOSI,
@@ -117,7 +119,7 @@ static int init_spi()
 		return -1;
 	}
 
-	// Set the data rate to XENSIV_BGT60TRXX_SPI_FREQUENCY Mbps
+	// Set the data rate to spi_freq Mbps
 	if (cyhal_spi_set_frequency(&spi_obj, spi_freq) != CY_RSLT_SUCCESS)
 	{
 		printf("ERROR: cyhal_spi_set_frequency failed\n");
@@ -156,21 +158,21 @@ static int init_radar()
 
 	if (init_spi() != 0) return -1;
 
-    /* Enable the LDO. */
-    result = cyhal_gpio_init(ARDU_ADC1,
+    /* Enable the Power for the BGT60TR13C Sensor. */
+    result = cyhal_gpio_init(ARDU_IO3,
                              CYHAL_GPIO_DIR_OUTPUT,
                              CYHAL_GPIO_DRIVE_STRONG,
-                             true);
+                             false);
     if (result != CY_RSLT_SUCCESS) return -2;
 
-    // Wait LDO stable
-    cyhal_system_delay_ms(5);
-
+    /*Initialize NJR4652F2S1 Module RESET and keep it low*/
+    result = cyhal_gpio_init( ARDU_IO5, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, false);
+    if (result != CY_RSLT_SUCCESS) return -2;
 
     result = xensiv_bgt60trxx_mtb_init(&sensor,
                                        &spi_obj,
 									   ARDU_CS,
-									   ARDU_ADC3,
+									   ARDU_IO4,
                                        register_list,
                                        XENSIV_BGT60TRXX_CONF_NUM_REGS);
     if (result != CY_RSLT_SUCCESS) return -3;
@@ -178,7 +180,7 @@ static int init_radar()
     // The sensor will generate an interrupt once the sensor FIFO level is NUM_SAMPLES_PER_FRAME
     result = xensiv_bgt60trxx_mtb_interrupt_init(&sensor,
     		NUM_SAMPLES_PER_FRAME,
-			ARDU_ADC4,
+			ARDU_IO6,
 			CYHAL_ISR_PRIORITY_DEFAULT,
 			xensiv_bgt60trxx_mtb_interrupt_handler,
 			NULL);
