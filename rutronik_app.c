@@ -159,15 +159,16 @@ static int init_radar()
 	if (init_spi() != 0) return -1;
 
     /* Enable the Power for the BGT60TR13C Sensor. */
-    result = cyhal_gpio_init(ARDU_IO3,
-                             CYHAL_GPIO_DIR_OUTPUT,
-                             CYHAL_GPIO_DRIVE_STRONG,
-                             false);
+    /*Initialize BGT60TR13C Power Control pin*/
+    result = cyhal_gpio_init(ARDU_IO3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, true); /*Turn it ON*/
     if (result != CY_RSLT_SUCCESS) return -2;
 
-    /*Initialize NJR4652F2S1 Module RESET and keep it low*/
-    result = cyhal_gpio_init( ARDU_IO5, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, false);
+    /*Initialize NJR4652F2S2 POWER pin*/
+    result = cyhal_gpio_init(ARDU_IO7, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_OPENDRAINDRIVESLOW, false); /*Keep it OFF*/
     if (result != CY_RSLT_SUCCESS) return -2;
+
+    /*Must wait at least 1ms until the BGT60TR13C sensor power supply gets to nominal value*/
+    CyDelay(10);
 
     result = xensiv_bgt60trxx_mtb_init(&sensor,
                                        &spi_obj,

@@ -9,7 +9,7 @@ This code example demonstrates the Infineon XENSIV™  Presence Detection algori
 ## Requirements
 
 - [ModusToolbox™ software](https://www.cypress.com/products/modustoolbox-software-environment) v3.1
-- [RAB3-Radar](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files) Rev0 [[prototype](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files/tree/main/Rev0)]
+- [RAB3-Radar](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files) Rev1
 
 ## The Provisioning of the RDK3
 
@@ -42,8 +42,6 @@ This code example will output the results of the presence detection algorithm in
 You can change the radar configuration used to measure by generating a new "radar_settings.h" configuration.
 
 Use the tool provided by Infineon “[Radar Fusion GUI](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ifxradargui)” to generate a new version of the file.
-
-Current limitation: a maximum speed of 5 MHz can be used on the SPI bus to read the data out of the radar's FIFO. If you generate too much data (too much frames per seconds for example) you might have communication problems.
 
 #### Change the configuration of the presence detection algorithm
 The configuration of the presence detection algorithm can be directly changed inside the rutronik_app.c file.
