@@ -34,9 +34,9 @@
                                         <Field>
                                             <FieldProperties>
                                                 <Property id="Name" value="Name"/>
-                                                <Property id="Value" value="RDK3_TX"/>
+                                                <Property id="Value" value="RDK3_Radar"/>
                                                 <Property id="Format" value="f_utf8s"/>
-                                                <Property id="ByteLength" value="7"/>
+                                                <Property id="ByteLength" value="10"/>
                                             </FieldProperties>
                                         </Field>
                                     </Fields>
@@ -107,7 +107,68 @@
                                 <Property id="EntityID" value="{32cf247e-c8b3-4b97-95e6-a09137868b2b}"/>
                                 <Property id="ServiceDeclaration" value="Primary"/>
                             </ServiceProperties>
-                            <Characteristics/>
+                            <Characteristics>
+                                <Characteristic type="org.bluetooth.characteristic.model_number_string">
+                                    <Fields>
+                                        <Field>
+                                            <FieldProperties>
+                                                <Property id="Name" value="Model Number"/>
+                                                <Property id="Value" value="Radar"/>
+                                                <Property id="Format" value="f_utf8s"/>
+                                                <Property id="ByteLength" value="5"/>
+                                            </FieldProperties>
+                                        </Field>
+                                    </Fields>
+                                    <Properties>
+                                        <BleProperty>
+                                            <Property id="PropertyType" value="Read"/>
+                                            <Property id="Present" value="true"/>
+                                            <Property id="Mandatory" value="true"/>
+                                        </BleProperty>
+                                    </Properties>
+                                    <Permission>
+                                        <Property id="AccessPermissionRead" value="true"/>
+                                        <Property id="EncryptionPermissionRead" value="NoEncryptionRequired"/>
+                                        <Property id="AuthenticationPermissionRead" value="NoAuthenticationRequired"/>
+                                        <Property id="AuthorizationPermissionRead" value="NoAuthorizationRequired"/>
+                                        <Property id="AccessPermissionWrite" value="false"/>
+                                        <Property id="EncryptionPermissionWrite" value="NoEncryptionRequired"/>
+                                        <Property id="AuthenticationPermissionWrite" value="NoAuthenticationRequired"/>
+                                        <Property id="AuthorizationPermissionWrite" value="NoAuthorizationRequired"/>
+                                    </Permission>
+                                    <Descriptors/>
+                                </Characteristic>
+                                <Characteristic type="org.bluetooth.characteristic.software_revision_string">
+                                    <Fields>
+                                        <Field>
+                                            <FieldProperties>
+                                                <Property id="Name" value="Software Revision"/>
+                                                <Property id="Value" value="1.1"/>
+                                                <Property id="Format" value="f_utf8s"/>
+                                                <Property id="ByteLength" value="3"/>
+                                            </FieldProperties>
+                                        </Field>
+                                    </Fields>
+                                    <Properties>
+                                        <BleProperty>
+                                            <Property id="PropertyType" value="Read"/>
+                                            <Property id="Present" value="true"/>
+                                            <Property id="Mandatory" value="true"/>
+                                        </BleProperty>
+                                    </Properties>
+                                    <Permission>
+                                        <Property id="AccessPermissionRead" value="true"/>
+                                        <Property id="EncryptionPermissionRead" value="NoEncryptionRequired"/>
+                                        <Property id="AuthenticationPermissionRead" value="NoAuthenticationRequired"/>
+                                        <Property id="AuthorizationPermissionRead" value="NoAuthorizationRequired"/>
+                                        <Property id="AccessPermissionWrite" value="false"/>
+                                        <Property id="EncryptionPermissionWrite" value="NoEncryptionRequired"/>
+                                        <Property id="AuthenticationPermissionWrite" value="NoAuthenticationRequired"/>
+                                        <Property id="AuthorizationPermissionWrite" value="NoAuthorizationRequired"/>
+                                    </Permission>
+                                    <Descriptors/>
+                                </Characteristic>
+                            </Characteristics>
                         </Service>
                         <Service type="org.bluetooth.service.custom">
                             <ServiceProperties>
@@ -238,10 +299,10 @@
     </Profiles>
     <GAP>
         <General>
-            <Property id="DeviceAddress" value="00A050-AABBFF"/>
+            <Property id="DeviceAddress" value="00A050-XXXXXX"/>
             <Property id="SiliconGeneratedAddress" value="false"/>
-            <Property id="MacGeneratedAddress" value="false"/>
-            <Property id="DeviceName" value="RDK3_TX"/>
+            <Property id="MacGeneratedAddress" value="true"/>
+            <Property id="DeviceName" value="RDK3_Radar"/>
             <Property id="Appearance" value="0"/>
             <Property id="TxPowerLevelAdvScan" value="Pos_4"/>
             <Property id="TxPowerLevelConnection" value="Pos_4"/>

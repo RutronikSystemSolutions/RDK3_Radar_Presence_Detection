@@ -16,6 +16,10 @@
 #include "cycfg_pins.h"
 #include "cyhal_system.h"
 
+#include "hal/hal_i2c.h"
+#include "dio59020/dio59020.h"
+#include "battery_monitor/battery_monitor.h"
+
 #include "xensiv_bgt60trxx_mtb.h"
 #define XENSIV_BGT60TRXX_CONF_IMPL
 #include "radar_settings.h"
@@ -37,6 +41,7 @@ typedef struct
 	bool radar_values_available;
 	uint64_t timestamp;
 	uint8_t frame_counter;
+	uint8_t battery_prescaler;
 } rutronik_app_t;
 static rutronik_app_t app;
 
@@ -158,9 +163,9 @@ static int init_radar()
 
 	if (init_spi() != 0) return -1;
 
-    /* Enable the Power for the BGT60TR13C Sensor. */
-    /*Initialize BGT60TR13C Power Control pin*/
+	/*Initialize BGT60TR13C Power Control pin*/
     result = cyhal_gpio_init(ARDU_IO3, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, true); /*Turn it ON*/
+
     if (result != CY_RSLT_SUCCESS) return -2;
 
     /*Initialize NJR4652F2S2 POWER pin*/
@@ -243,11 +248,19 @@ static int init_presence_detection()
 	return 0;
 }
 
+static int init_battery_monitoring()
+{
+	dio59020_init(hal_i2c_read_register, hal_i2c_write_register);
+	battery_monitor_init();
+	return 0;
+}
+
 void rutronik_app_init()
 {
 	app.radar_values_available = false;
 	app.frame_counter = 0;
 	app.timestamp = 0;
+	app.battery_prescaler = 0;
 
 
 	int retval = init_radar();
@@ -261,6 +274,13 @@ void rutronik_app_init()
 	if (retval != 0)
 	{
 		printf("init_presence_detection returns: %d \r\n", retval);
+		CY_ASSERT(0);
+	}
+
+	retval = init_battery_monitoring();
+	if (retval != 0)
+	{
+		printf("init_battery_monitoring returns: %d \r\n", retval);
 		CY_ASSERT(0);
 	}
 }
@@ -323,6 +343,26 @@ void rutronik_app_do()
 		xensiv_bgt60trxx_start_frame(&sensor.dev, false);
 		xensiv_bgt60trxx_start_frame(&sensor.dev, true);
 	}
+
+	if (app.battery_prescaler == 0)
+	{
+		// Get the battery voltage
+		uint16_t battery_voltage = battery_monitor_get_voltage_mv();
+
+		charge_stat_t charge_stat;
+		dio_get_status(&charge_stat);
+
+		chrg_fault_t chrg_fault;
+		dio_get_fault(&chrg_fault);
+
+		uint8_t dio_status;
+		dio_monitor_read_raw(&dio_status);
+
+		host_main_add_notification(
+				notification_fabric_create_for_battery_monitor(battery_voltage, (uint8_t) charge_stat, (uint8_t) chrg_fault, dio_status));
+	}
+	app.battery_prescaler++;
+	if (app.battery_prescaler >= 10) app.battery_prescaler = 0;
 
 	// Update the timestamp
 	app.timestamp += (uint64_t) repetition_msec;

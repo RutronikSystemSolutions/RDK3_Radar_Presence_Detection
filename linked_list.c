@@ -9,6 +9,12 @@
 
 #include <stdlib.h>
 
+/**
+ * @var max_el_count
+ * Store the maximum number of possible elements inside the list
+ */
+static uint16_t max_el_count = 10;
+
 static linked_list_free_element_func_t free_element;
 
 static void linked_list_reset(linked_list_t* list)
@@ -26,6 +32,13 @@ void linked_list_init(linked_list_t* list, linked_list_free_element_func_t free_
 
 void linked_list_add_element(linked_list_t* list, void* buffer)
 {
+	if (list->element_count >= max_el_count)
+	{
+		free_element(buffer);
+		return;
+	}
+	if (buffer == NULL) return;
+
 	linked_list_element_t* element = malloc(sizeof(linked_list_element_t));
 	element->content = buffer;
 	element->next = NULL;

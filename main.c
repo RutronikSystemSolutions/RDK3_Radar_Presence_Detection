@@ -183,7 +183,8 @@ int main(void)
     }
 
     printf("------------------------- \r\n");
-    printf("Starting RDK3 application - RADAR PRESENCE DETECTION \r\n");
+    printf("Starting RDK3 application - RADAR PRESENCE DETECTION - v1.1 \r\n");
+    printf("Enabling control over Smartphone App \r\n");
     printf("------------------------- \r\n");
 
     // Initialize the User LEDs

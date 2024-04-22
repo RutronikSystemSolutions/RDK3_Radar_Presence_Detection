@@ -20,6 +20,9 @@ void notification_fabric_free_notification(notification_t* notification);
 
 #define NOTIFICATION_RADAR_PRESENCE_TYPE_INFORMATION 3
 
+
+notification_t* notification_fabric_create_for_battery_monitor(uint16_t voltage, uint8_t charge_status, uint8_t charge_fault, uint8_t dio_status);
+
 /**
  * @param [in] type
  * 	0: Macro presence

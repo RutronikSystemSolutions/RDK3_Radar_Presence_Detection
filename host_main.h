@@ -51,6 +51,4 @@ int host_main_do();
 
 int host_main_add_notification(notification_t* notification);
 
-int host_main_is_ready_for_notification();
-
 #endif /* HOST_MAIN_H_ */
