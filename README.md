@@ -105,6 +105,11 @@ If you successfully have imported the example, the debug configurations are alre
 
 <img src="images/debug_start.png" style="zoom:100%;" />
 
+## Libraries
+
+The project contains a local copy of the sensor-xensiv-bgt60trxx.
+Modifications have been made inside the file xensiv_bgt60trxx_mtb.c to detect timeout during SPI transfers.
+
 ## Legal Disclaimer
 
 The evaluation board including the software is for testing purposes only and, because it has limited functions and limited resilience, is not suitable for permanent use under real conditions. If the evaluation board is nevertheless used under real conditions, this is done at one’s responsibility; any liability of Rutronik is insofar excluded. 

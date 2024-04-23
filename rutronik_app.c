@@ -293,10 +293,12 @@ void rutronik_app_do()
 	if (app.radar_values_available == false) return;
 	app.radar_values_available = false;
 
+	// Toggle LED
 	cyhal_gpio_toggle(LED1);
 
 	// Get the FIFO data
 	int32_t retval = xensiv_bgt60trxx_get_fifo_data(&sensor.dev, samples, NUM_SAMPLES_PER_FRAME);
+
 	if (retval == XENSIV_BGT60TRXX_STATUS_OK)
 	{
 		// Need to convert the uint16_t samples into float32_t
