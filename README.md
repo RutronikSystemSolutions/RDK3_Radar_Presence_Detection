@@ -10,6 +10,11 @@ This code example demonstrates the Infineon XENSIV™  Presence Detection algori
 
 - [ModusToolbox® software](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/) **v3.x** [built with **v3.1**]
 - [RAB3-Radar](https://github.com/RutronikSystemSolutions/RAB3_Radar_Hardware_Files) Rev1
+- [ModusToolbox® software](https://www.infineon.com/cms/en/design-support/tools/sdk/modustoolbox-software/) **v3.2**: 
+
+1. The [Python](https://www.python.org/) has to be installed manually on Windows OS.
+2. Make sure the Python installation is added to the path variable. 
+3. Use this command to install the [cysecuretools](https://pypi.org/project/cysecuretools/) package:
 
 ## Supported toolchains (make variable 'TOOLCHAIN')
 
