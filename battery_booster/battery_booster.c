@@ -49,13 +49,13 @@ _Bool batt_boost_ctrl_init(void)
     		{
     			/*The button is pressed*/
     			/*Unload the DIO59020 and turn on the +5V booster*/
-    			cyhal_gpio_write(ARDU_IO3, true);
+    			cyhal_gpio_write(ARDU_IO3, false);
     			CyDelay(10);
     			dio_booster_enable();
 
     			/*Load the DIO59020 now*/
     			CyDelay(100);
-    			cyhal_gpio_write(ARDU_IO3, false);
+    			cyhal_gpio_write(ARDU_IO3, true);
     			return true;
     		}
     		else /*Noise?*/
